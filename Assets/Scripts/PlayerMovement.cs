@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         _horizontalSpeed = Input.GetAxisRaw("Horizontal");
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             _isJump = true;
         }
