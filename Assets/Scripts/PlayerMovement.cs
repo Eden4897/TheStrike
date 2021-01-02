@@ -2,42 +2,70 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rb2d;
-    private float _horizontalSpeed = 0;
-    private float _speed = 2f;
-    private bool _isJump = false;
-    private int _maxJumps = 2;
-    public int _jumps = 2;
-    private void Start()
-    {
-        
-    }
+    public Rigidbody2D rb;
+    public float movementSpeed;
+    public float jumpForce;
+    public Transform groundDetector;
+    public LayerMask groundLayers;
+    public bool facingRight;
+
+    public Animator animator;
+
+    float mx;
 
     private void Update()
     {
-        _horizontalSpeed = Input.GetAxisRaw("Horizontal");
-        if(Input.GetKeyDown(KeyCode.Space))
+        mx = Input.GetAxisRaw("Horizontal");
+
+        Flip();
+
+        if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            _isJump = true;
+            animator.SetBool("Jump", true);
+            Jump();
         }
+
+        animator.SetFloat("yVelocity", rb.velocity.y);
+
     }
 
     private void FixedUpdate()
     {
-        rb2d.AddForce(new Vector2(_horizontalSpeed * _speed, 0), ForceMode2D.Impulse);
-        if (_isJump && _jumps != 0)
-        {
-            rb2d.AddForce(new Vector2(0, 50), ForceMode2D.Impulse);
-            _isJump = false;
-            _jumps--;
-        }
+        animator.SetFloat("Speed", Mathf.Abs(mx));
+
+        Vector2 movement = new Vector2(mx * movementSpeed, rb.velocity.y);
+
+        rb.velocity = movement;
+
     }
 
-    public void ResetJumps()
+    void Jump()
     {
-        _jumps = _maxJumps;
+        Vector2 movement = new Vector2(rb.velocity.x, jumpForce);
+
+        rb.velocity = movement;
+    }
+
+    public bool IsGrounded()
+    {
+        Collider2D groundCheck = Physics2D.OverlapCircle(groundDetector.position, 0.1f, groundLayers);
+
+        if (groundCheck != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    void Flip()
+    {
+        if ((mx < 0 && facingRight) || (mx > 0 && !facingRight))
+        {
+            facingRight = !facingRight;
+            transform.Rotate(new Vector3(0, 180, 0));
+        }
     }
 }
