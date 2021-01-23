@@ -2352,9 +2352,9 @@ MonoBehaviour:
   - {fileID: 352951704}
   offset: {x: 0, y: 3, z: -1}
   smoothTime: 0.1
-  maxZoom: 0
-  minZoom: 0
-  zoomLimiter: 0
+  maxZoom: 6
+  minZoom: 1
+  zoomLimiter: 10
 --- !u!1 &2032697219
 GameObject:
   m_ObjectHideFlags: 0
