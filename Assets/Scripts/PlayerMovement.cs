@@ -33,11 +33,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("Jump", true);
         }
 
-        if (IsGrounded == true)
-        {
-            animator.SetBool("Jump", false);
-        }
-
         _horizontalSpeed = Input.GetAxisRaw("Horizontal");
 
         Flip();
