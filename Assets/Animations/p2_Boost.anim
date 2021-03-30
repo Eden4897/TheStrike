@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: p2_Dash
+  m_Name: p2_Boost
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0

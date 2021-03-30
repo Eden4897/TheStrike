@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         animator.SetFloat("yVelocity", rb2d.velocity.y);
+        animator.SetFloat("xVelocity", rb2d.velocity.x);
 
     }
 
